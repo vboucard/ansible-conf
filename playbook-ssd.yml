@@ -13,15 +13,15 @@
       reload: yes
       
   - name: Installer zram.
-    apt:
-      name: zram-tools
+    package:
+      name: zram
       state: present
       
   - name: Mettre /tmp en swap
     lineinfile:
       path: /etc/fstab
       regexp: '^tmpfs'
-      line: tmpfs /tmp tmpfs defaults,relatime,mode=1777,nosuid,size=4196M 0 0
+      line: tmpfs /tmp tmpfs defaults,relatime,mode=1777,nosuid,size=8192M 0 0
       
   - name: Root à 60 secondes de commit
     replace:
