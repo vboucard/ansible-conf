@@ -1,0 +1,30 @@
+---
+- hosts: all
+  connection: local
+  become: yes
+  
+  tasks:
+  - name: Swappiness à 10.
+    sysctl:
+      key: vm.swappiness
+      value: '10'
+      sysctl_set: yes
+      state: present
+      reload: yes
+      
+  - name: Installer zram.
+    apt:
+      name: zram-tools
+      state: present
+      
+  - name: Mettre /tmp en swap
+    lineinfile:
+      path: /etc/fstab
+      regexp: '^tmpfs'
+      line: tmpfs /tmp tmpfs defaults,relatime,mode=1777,nosuid,size=4196M 0 0
+      
+  - name: Root à 60 secondes de commit
+    replace:
+      path: /etc/fstab
+      regexp: '(errors=remount-ro)\s'
+      replace: '\1,commit=60 '

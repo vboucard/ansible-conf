@@ -1,0 +1,31 @@
+---
+- hosts: all
+  connection: local
+  become: yes
+
+  pre_tasks:
+  - name: S'assurer que le cache APT est à jour.
+    apt:
+      update_cache: yes
+      cache_valid_time: 3600
+
+  handlers:
+  - name: apt update
+    apt:
+      update_cache: yes
+
+  - name: apt upgrade
+    apt:
+      name: "*"
+      state: latest
+
+
+  tasks:
+  - name: Ajout du dépot virtualbox.
+    apt_repository:
+      repo: deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian/ buster contrib
+      state: present
+      filename: virtualbox
+    notify:
+      - apt update
+      - apt upgrade
