@@ -8,7 +8,17 @@
     apt:
       update_cache: yes
       cache_valid_time: 3600
-
+  
+  - name: Ajout d'une clé Oracle 2016
+    apt_key:
+      url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+      state: present
+      
+  - name: Ajout d'une clé Oracle
+    apt_key:
+      url: https://www.virtualbox.org/download/oracle_vbox.asc
+      state: present
+          
   handlers:
   - name: apt update
     apt:
