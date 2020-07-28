@@ -1,0 +1,54 @@
+---
+- hosts: all
+  connection: local
+  become: yes
+
+  pre_tasks:
+  - name: S'assurer que le cache APT est à jour.
+    apt:
+      update_cache: yes
+      cache_valid_time: 3600
+
+  - name: Installer la keyring pour deb multimedia.
+    apt:
+      deb: http://www.deb-multimedia.org/pool/main/d/deb-multimedia-keyring/deb-multimedia-keyring_2016.8.1_all.deb
+
+  - name: Ajout d'une clé Oracle 2016
+    apt_key:
+      url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+      state: present
+
+  - name: Ajout d'une clé Wine.
+    apt_key:
+      url: https://dl.winehq.org/wine-builds/winehq.key
+      state: present
+
+  handlers:
+  - name: apt update
+    apt:
+      update_cache: yes
+
+  - name: apt upgrade
+    apt:
+      name: "*"
+      state: latest
+
+  tasks:
+  - name: Ajout du dépot virtualbox.
+    apt_repository:
+      repo: deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian/ buster contrib
+      state: present
+      filename: virtualbox
+
+  - name: Ajout du dépot wine.
+    apt_repository:
+      repo: deb https://dl.winehq.org/wine-builds/debian/ bullseye main
+      state: present
+      filename: wine
+
+  - name: Ajout du dépot multimedia.
+    apt_repository:
+      repo: deb https://www.deb-multimedia.org testing main non-free
+      state: present
+      filename: multimedia
+
