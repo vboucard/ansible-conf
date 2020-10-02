@@ -42,13 +42,29 @@
     - name: enable extensions
       dconf:
         key: "/org/gnome/shell/enabled-extensions"
-        value: "['openweather-extension@jenslody.de', \
-          'windowoverlay-icons@sustmidown.centrum.cz', \
-          'appindicatorsupport@rgcjonas.gmail.com', \
-          'dash-to-dock@micxgx.gmail.com', \
-          'emoji-selector@maestroschan.fr']"
+        value: "['background-logo@fedorahosted.org', 'dash-to-dock@micxgx.gmail.com', 'emoji-selector@maestroschan.fr', 'appindicatorsupport@rgcjonas.gmail.com', 'openweather-extension@jenslody.de', 'places-menu@gnome-shell-extensions.gcampax.github.com']"
 
-    #############
+    - name: Dash-to-dock position.
+      dconf:
+        key: "/org/gnome/shell/extensions/dash-to-dock/dock-position"
+        value: "'BOTTOM'"
+
+    - name: Dash-to-dock multi-écrans.
+      dconf:
+        key: "/org/gnome/shell/extensions/dash-to-dock/multi-monitor"
+        value: "true"
+
+    - name: Dash-to-dock multi-écrans.
+      dconf:
+        key: "/org/gnome/shell/extensions/dash-to-dock/dock-fixed"
+        value: "false"
+
+    - name: Dash-to-dock réduire les marges.
+      dconf:
+        key: "/org/gnome/shell/extensions/dash-to-dock/custom-theme-shrink"
+        value: "true"
+
+  #############
     # shortcuts #
     #############
 
@@ -145,105 +161,28 @@
         key: "/org/gnome/terminal/legacy/new-tab-position"
         value: "'next'"
 
-    #########
-    # power #
-    #########
-
-    # - name: never blank screen
-    #   dconf:
-    #     key: "/org/gnome/desktop/session/idle-delay"
-    #     value: "uint32 0"
-
-    # - name: inactive timeout
-    #   dconf:
-    #     key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type"
-    #     value: "'nothing'"
-
-    # - name: inactive timeout on battery
-    #   dconf:
-    #     key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-battery-type"
-    #     value: "'nothing'"
-
-    # - name: show battery percentage
-    #   dconf:
-    #     key: "/org/gnome/desktop/interface/show-battery-percentage"
-    #     value: "true"
-
-    # - name: ignore lid close
-    #   become: true
-    #   lineinfile:
-    #     path: /etc/systemd/logind.conf
-    #     regexp: '^HandleLidSwitch='
-    #     insertafter: '^#HandleLidSwitch='
-    #     line: 'HandleLidSwitch=ignore'
-
     #################
     # date and time #
     #################
-
-    # - name: automatic timezone
-    #   dconf:
-    #     key: "/org/gnome/desktop/datetime/automatic-timezone"
-    #     value: "true"
-
-    # - name: clock show date
-    #   dconf:
-    #     key: "/org/gnome/desktop/interface/clock-show-date"
-    #     value: "true"
 
     - name: Afficher les secondes.
       dconf:
         key: "/org/gnome/desktop/interface/clock-show-seconds"
         value: "true"
 
+    - name: Afficher le jour de la semaine.
+      dconf:
+        key: "/org/gnome/desktop/interface/clock-show-weekday"
+        value: "true"
+
+    - name: Afficher le numéro de la semaine.
+      dconf:
+        key: "/org/gnome/desktop/calendar/show-weekdate"
+        value: "true"
+
     ############
     # behavior #
     ############
-
-    # - name: workspaces span displays
-    #   dconf:
-    #     key: "/org/gnome/mutter/workspaces-only-on-primary"
-    #     value: "false"
-
-    # - name: app-switcher on the current workspace only
-    #   dconf:
-    #     key: "/org/gnome/shell/app-switcher/current-workspace-only"
-    #     value: "true"
-
-    # - name: set xkb options
-    #   dconf:
-    #     key: "/org/gnome/desktop/input-sources/xkb-options"
-    #     value: "['caps:escape', 'lv3:rwin_switch', 'shift:both_capslock_cancel']"
-
-    # - name: detach modal dialogs
-    #   dconf:
-    #     key: "/org/gnome/shell/overrides/attach-modal-dialogs"
-    #     value: "false"
-
-    # - name: automount
-    #   dconf:
-    #     key: "/org/gnome/desktop/media-handling/automount"
-    #     value: "false"
-
-    # - name: area click method
-    #   dconf:
-    #     key: "/org/gnome/desktop/peripherals/touchpad/click-method"
-    #     value: "'areas'"
-
-    # - name: disable natural scrolling
-    #   dconf:
-    #     key: "/org/gnome/desktop/peripherals/touchpad/natural-scroll"
-    #     value: "false"
-
-    # - name: enable two-finger scrolling
-    #   dconf:
-    #     key: "/org/gnome/desktop/peripherals/touchpad/two-finger-scrolling-enabled"
-    #     value: "true"
-
-    # - name: mutter real-time scheduling
-    #   dconf:
-    #     key: "/org/gnome/mutter/experimental-features"
-    #     value: "['rt-scheduler']"
 
     - name: enable subpixel antialiasing
       dconf:
@@ -262,64 +201,10 @@
 
     # Only works on X11, not Wayland.
 
-    # - name: middle click titlebar to lower
-    #   dconf:
-    #     key: "/org/gnome/desktop/wm/preferences/action-middle-click-titlebar"
-    #     value: "'lower'"
-
-    # #####################
-    # # epiphany settings #
-    # #####################
-
-    # - name: do not ask to set epiphany as the default browser
-    #   dconf:
-    #     key: "/org/gnome/epiphany/ask-for-default"
-    #     value: "false"
-
-    # - name: always restore epiphany session
-    #   dconf:
-    #     key: "/org/gnome/epiphany/restore-session-policy"
-    #     value: "'always'"
-
-    # - name: do not expand epiphany tabs to fill bar
-    #   dconf:
-    #     key: "/org/gnome/epiphany/ui/expand-tabs-bar"
-    #     value: "false"
-
-    # - name: always show epiphany tab bar
-    #   dconf:
-    #     key: "/org/gnome/epiphany/ui/tabs-bar-visibility-policy"
-    #     value: "'always'"
-
-    # - name: ask where to save downloads in epiphany
-    #   dconf:
-    #     key: "/org/gnome/epiphany/web/ask-on-download"
-    #     value: "true"
-
-    # - name: enable epiphany adblock
-    #   dconf:
-    #     key: "/org/gnome/epiphany/web/enable-adblock"
-    #     value: "true"
-
-    # - name: disable epiphany popups
-    #   dconf:
-    #     key: "/org/gnome/epiphany/web/enable-popups"
-    #     value: "false"
-
-    # - name: enable epiphany safe browsing
-    #   dconf:
-    #     key: "/org/gnome/epiphany/web/enable-safe-browsing"
-    #     value: "true"
-
-    # - name: disable smooth scrolling in epiphany
-    #   dconf:
-    #     key: "/org/gnome/epiphany/web/enable-smooth-scrolling"
-    #     value: "false"
-
-    # - name: do not offer to remember passwords in epiphany
-    #   dconf:
-    #     key: "/org/gnome/epiphany/web/remember-passwords"
-    #     value: "false"
+    - name: middle click titlebar to minimze
+      dconf:
+        key: "/org/gnome/desktop/wm/preferences/action-middle-click-titlebar"
+        value: "'minimize'"
 
     ###################
     # profile picture #
